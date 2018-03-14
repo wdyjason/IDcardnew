@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">身份证识别</string>
+    <string name="textview1">address</string>
+    <string name="textview2">住址：</string>
+    <string name="textview3">身份证号：</string>
+    <string name="textview4">TextView</string>
+    <string name="button">保存并退出</string>
+    <string name="Button">不满意重拍</string>
+    <string name="textview5">TextView</string>
+    <string name="textview6">民族：</string>
+    <string name="textview7">TextView</string>
+    <string name="textview8">出生日期：</string>
+    <string name="textview9">性别：</string>
+    <string name="textview10">TextView</string>
+    <string name="textview11">姓名：</string>
+    <string name="textview12">TextView</string>
+    <string name="todo">TODO</string>
+</resources>

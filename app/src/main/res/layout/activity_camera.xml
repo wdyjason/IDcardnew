@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_photo_graph"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wdy.idcardnew.CameraActivity">
+
+    <SurfaceView
+        android:id="@+id/camera_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.example.wdy.idcardnew.function.set_camera_view
+        android:id="@+id/rectOnCamera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/pbar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:rotation="90" />
+
+    <RelativeLayout
+        android:id="@+id/rl_bk_sc"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="22.5dp"
+            android:layout_height="16dp"
+            android:layout_centerInParent="true"
+            android:rotation="90"
+            android:src="?attr/actionModeCloseDrawable" />
+
+
+    </RelativeLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/Cinstrainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/light"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/list_selector_background"
+            android:onClick="onClick"
+            android:textColor="#ffffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.958" />
+
+        <TextView
+
+            android:id="@+id/tv_openlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:rotation="90"
+            android:text="闪光灯"
+            android:textColor="#ffffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/light"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.921" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="22.5dp"
+            android:layout_height="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:rotation="90"
+
+            android:src="@drawable/falshlight"
+            app:layout_constraintBottom_toBottomOf="@+id/light"
+            app:layout_constraintEnd_toEndOf="@+id/light"
+            app:layout_constraintStart_toStartOf="@+id/light"
+            app:layout_constraintTop_toTopOf="@+id/light" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>
