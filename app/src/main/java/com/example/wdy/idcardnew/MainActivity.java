@@ -22,6 +22,17 @@ import java.util.TimerTask;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -29,6 +40,25 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     private static final int num = 123;
 
+    public  String TAG ="mainactiity";
+    //OpenCV库加载并初始化成功后的回调函数
+    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+
+        @Override
+        public void onManagerConnected(int status) {
+            // TODO Auto-generated method stub
+            switch (status){
+                case BaseLoaderCallback.SUCCESS:
+                    Log.i(TAG, "成功加载");
+                    break;
+                default:
+                    super.onManagerConnected(status);
+                    Log.i(TAG, "加载失败");
+                    break;
+            }
+
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
            {
                e.printStackTrace();
            }
+
            // 计时器
            Timer timer =new Timer();//计时器应该是开启了一个子线程，在子线程里不能直接开始Toast，应先初始化消息队列
            //实例化计时器
@@ -102,6 +133,18 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         Toast.makeText(this, "权限被阻止请开启!", Toast.LENGTH_LONG).show();
+    }
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        //load OpenCV engine and init OpenCV library
+        if (!OpenCVLoader.initDebug()) {
+            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_2_0, getApplicationContext(), mLoaderCallback);
+            Log.i(TAG, "onResume sucess load OpenCV...");
+        } else {
+            mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+        }
     }
 }
 

@@ -40,28 +40,35 @@ public class useful_functions {
             case "id_num":
                 baseApi.init(TESSBASE_PATH,DEFAULT_LANGUAGE );
                 baseApi.setVariable("tessedit_char_whitelist", "0123456789Xx");
+                baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_LINE);
                 break;
             case"sex":
                 baseApi.init(TESSBASE_PATH,CHINESE_LANGUAGE);
                 baseApi.setVariable("tessedit_char_whitelist", "男女");
+                baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_LINE);
                 break;
             case"birth":
                 baseApi.init(TESSBASE_PATH,DEFAULT_LANGUAGE );
-                baseApi.setVariable("tessedit_char_whitelist", "0123456789");
+                baseApi.setVariable("classify_bln_numeric_mode", "1");//数字模式
+                baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_LINE);
                 break;
             case"minority":
                 baseApi.init(TESSBASE_PATH,CHINESE_LANGUAGE);
+                baseApi.setVariable("tessedit_char_blacklist", "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz");
                 baseApi.setVariable("tessedit_char_whitelist", "汉壮满回苗维吾尔土家彝蒙古藏布依侗瑶朝鲜白哈尼哈萨克黎傣畲傈僳仡佬东乡高山拉祜水佤纳西羌土仫佬锡伯柯尔克孜达斡尔景颇毛南撒拉布朗塔吉克阿昌普米鄂温克怒京基诺德昂保安俄罗斯裕固乌孜别克门巴鄂伦春独龙塔塔尔赫哲珞巴族");
+                baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_LINE);
                 break;
                 default:
                     baseApi.init(TESSBASE_PATH,CHINESE_LANGUAGE);
                     baseApi.setVariable("tessedit_char_blacklist", "。，、＇：∶；?‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·¨….¸;！´？！～—ˉ｜‖＂〃｀@﹫¡¿﹏﹋﹌︴々﹟#﹩$﹠&﹪%*﹡﹢﹦﹤‐￣¯―﹨ˆ˜﹍﹎+=<＿_-ˇ~﹉﹊（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」【】︵︷︿︹︽_﹁﹃︻︶︸﹀︺︾ˉ﹂﹄︼ ");
+                    baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_AUTO);
                     break;
         }
-        ocrbitmap = ocrbitmap.copy(Bitmap.Config.ARGB_8888, true);
+       // ocrbitmap = ocrbitmap.copy(Bitmap.Config.ARGB_8888, true);
         baseApi.setImage(ocrbitmap);
         String ocrtext = baseApi.getUTF8Text();
         baseApi.clear();
+        ocrtext=format(ocrtext);
         Log.e(TAG, "识别结果：" + ocrtext );
         return ocrtext;
     }
@@ -287,6 +294,11 @@ public class useful_functions {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static String format(String s)//去掉标点
+    {
+        String str=s.replaceAll("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？|-]", "");
+        return str;
     }
 
 

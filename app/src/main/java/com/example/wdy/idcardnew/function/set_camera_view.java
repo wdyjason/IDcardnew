@@ -216,9 +216,9 @@ public class set_camera_view extends View{
         canvas.drawLine(rectRight, rectBottom - lineLen, rectRight, rectBottom,
                 linePaint);
          // 1080*1920  -》   rectWidth:720,rectHeght:1080
-        int x ,y ,w,h;
+       int x ,y ,w,h;
         //绘制身份证号的矩形框
-        x=(int) (rectHeght* 0.340);
+       /* x=(int) (rectHeght* 0.340);
         y=(int) ( rectWidth * 0.800);
         w=(int) (rectHeght * 0.6 + 0.5f);
         h=(int) ( rectWidth* 0.12 + 0.5f);
@@ -263,7 +263,7 @@ public class set_camera_view extends View{
         w=(int) (rectHeght * 0.46 + 0.5f);
         h=(int) ( rectWidth* 0.30 + 0.5f);
         rect= new Rect(rectRight-y-h,rectTop+x,rectRight-y,rectTop+x+w);
-        canvas.drawRect(rect,linePaint);
+        canvas.drawRect(rect,linePaint);*/
 
         //绘制人像框
         x=(int) (rectHeght* 0.630);

@@ -31,6 +31,10 @@ import android.widget.Toast;
 import com.example.wdy.idcardnew.function.set_camera_view;
 import com.example.wdy.idcardnew.function.useful_functions;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,11 +49,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback,
         Camera.AutoFocusCallback, Camera.PreviewCallback, View.OnClickListener {
     private static final String TAG = "CameraActivity";
     private Context context;
-
     private int mScreenWidth;
     private int mScreenHeight;
     private set_camera_view topView;
-
     private SurfaceHolder holder;
     private SurfaceView mSurfaceView = null;
     private Camera mCamera;
@@ -57,20 +59,17 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback,
     private TextView tv_desc;
     private ProgressBar PBar;
     private Button lightbutton;
-    private  long opentime;
-    public  boolean islighting =false;
-
     private String id_card_side;//身份证的正反面
-    public Camera.Size mPreviewSize;
+    private  long opentime;
     private List<Camera.Size> mSupportedPreviewSizes;
-    public Camera.Size previewSize=null;
-
-    public Camera.Size mPictureSize;
     private List<Camera.Size> mSupportedPictureSizes;
     private Camera.Parameters parameters;
-
-
     private String type;
+
+    public Camera.Size mPictureSize;
+    public Camera.Size previewSize=null;
+    public Camera.Size mPreviewSize;
+    public  boolean islighting =false;
     public String id_num;
     public String id_birth_year;
     public String id_minor;
@@ -80,6 +79,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback,
     public  boolean backgroundtaskiscaneled=false;
 
     public android.hardware.Camera.AutoFocusCallback mAutoFocusCallback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -453,7 +453,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback,
                     rawImage = baos.toByteArray();
                     //将rawImage转换成bitmap
                     BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inPreferredConfig = Bitmap.Config.RGB_565;
+                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                     bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
                     if (mData == null || bitmap == null) {
                         Log.d(TAG, "There is no data!!");
@@ -516,6 +516,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback,
                                     w = (int) (bitmap_width * 0.46 + 0.5f);
                                     h = (int) (bitmap_height * 0.30 + 0.5f);
                                     Bitmap bit_id_addr = Bitmap.createBitmap(bitmap1, x, y, w, h);
+                                    bit_id_addr=remove_background(bit_id_addr);
                                     id_addr = useful_functions.DoOcr(bit_id_addr,"default");
                                     publishProgress(90);
 
@@ -576,6 +577,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback,
             }
 
         }
+    }
+    public  Bitmap  remove_background(Bitmap inputpic)
+    {
+        Mat inputmat =new Mat();
+        Utils.bitmapToMat(inputpic,inputmat);
+        Imgproc.threshold(inputmat,inputmat,128,255,Imgproc.THRESH_BINARY);
+        Utils.matToBitmap(inputmat,inputpic);
+        return inputpic;
     }
 
 }

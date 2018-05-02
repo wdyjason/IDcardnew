@@ -114,6 +114,7 @@ public class DisplayActivity extends AppCompatActivity implements View.OnClickLi
             break;
             case(R.id.buttonright):
                 useful_functions.Save2txt(id_headpath+"result.txt","姓名："+id_name);
+                useful_functions.Save2txt(id_headpath+"result.txt","性别："+id_sex);
                 useful_functions.Save2txt(id_headpath+"result.txt","民族："+id_minor);
                 useful_functions.Save2txt(id_headpath+"result.txt","出身日期："+id_birth);
                 useful_functions.Save2txt(id_headpath+"result.txt","身份证号码："+id_num);
